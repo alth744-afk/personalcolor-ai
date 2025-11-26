@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terms of Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.7;
+    }
+    h1 { margin-bottom: 20px; }
+    .lang-select {
+      margin: 16px 0 30px;
+      padding: 8px 12px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 id="tos-title">Terms of Service</h1>
+
+  <select id="languageSelect" class="lang-select" aria-label="Language">
+    <option value="ko">한국어</option>
+    <option value="en">English</option>
+    <option value="ja">日本語</option>
+    <option value="zh">简体中文</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="vi">Tiếng Việt</option>
+  </select>
+
+  <div id="tos-content"></div>
+
+  <script>
+    const email = "alth744@gmail.com";
+
+    const tosText = {
+      ko: `
+        <p>본 이용약관은 이용자가 AI 퍼스널 컬러 분석 서비스를 이용함에 있어 필요한 권리, 의무 및 책임사항을 규정합니다.</p>
+
+        <h3>1. 서비스 개요</h3>
+        <p>본 사이트는 사용자가 업로드한 이미지를 기반으로 AI가 얼굴 톤을 분석하여 퍼스널 컬러를 추정하는 서비스를 제공합니다. 
+        분석 결과는 참고용이며, 정확성과 완전성을 보장하지 않습니다.</p>
+
+        <h3>2. 책임의 제한</h3>
+        <p>- AI 분석 결과는 정보 제공 목적이며, 패션·뷰티 등 실제 의사결정의 절대적 기준으로 사용되지 않아야 합니다.<br>
+        - 결과의 오류, 해석 차이, 조명·화질 등의 문제로 인한 오분석에 대해 법적 책임을 지지 않습니다.<br>
+        - 사용자가 업로드한 이미지 품질, 얼굴 인식 불가 등으로 분석이 실패할 수 있습니다.</p>
+
+        <h3>3. 이용자의 의무</h3>
+        <p>- 본 서비스는 본인 또는 타인의 얼굴 이미지를 분석할 수 있으나, 타인의 사진 업로드는 반드시 해당 당사자의 동의를 받아야 합니다.<br>
+        - 불법적‧부적절한 이미지(음란물, 폭력성, 저작권 위반 등)를 업로드할 수 없습니다.<br>
+        - 서비스의 정상적 운영을 방해하는 행위를 금지합니다.</p>
+
+        <h3>4. 금지되는 행위</h3>
+        <p>- 타인의 초상 또는 개인정보를 무단 업로드하는 행위<br>
+        - 자동화된 수단을 통한 대량 요청 또는 시스템 공격<br>
+        - AI 분석 결과를 허위 정보 제공이나 상업적 목적에 악용하는 행위</p>
+
+        <h3>5. 서비스 제공 및 변경</h3>
+        <p>사이트 운영자는 언제든지 서비스의 일부 또는 전체를 변경·중단할 수 있으며,
+        이러한 변경에 대해 사용자는 별도의 보상을 요구할 수 없습니다.</p>
+
+        <h3>6. 면책 조항</h3>
+        <p>- 분석 결과의 정확성, 적합성, 신뢰성에 대해 보증하지 않습니다.<br>
+        - 광고 또는 외부 링크는 해당 제공업체의 책임이며 본 사이트와 무관합니다.<br>
+        - 서비스 이용으로 발생한 손해에 대해 운영자는 책임을 지지 않습니다.</p>
+
+        <h3>7. 문의</h3>
+        <p>이용약관 관련 문의는 아래 이메일로 연락해 주세요.<br>
+        📧 <strong>${email}</strong></p>
+      `,
+
+      en: `
+        <p>These Terms of Service outline the rights, responsibilities, and obligations of users when using the AI Personal Color Analysis service.</p>
+
+        <h3>1. Service Overview</h3>
+        <p>This service analyzes a user-provided image using AI to estimate personal color categories. 
+        The results are for reference only and are not guaranteed to be fully accurate.</p>
+
+        <h3>2. Limitation of Liability</h3>
+        <p>- AI results are informational and should not be used as the sole basis for fashion or beauty decisions.<br>
+        - We are not responsible for misanalysis caused by lighting, camera quality, angle, or AI limitations.<br>
+        - Analysis may fail due to low-quality photos or unrecognizable faces.</p>
+
+        <h3>3. User Obligations</h3>
+        <p>- You must have consent before uploading another person’s photo.<br>
+        - Illegal or inappropriate images (pornographic, violent, copyrighted) are prohibited.<br>
+        - Users must not interfere with service operations.</p>
+
+        <h3>4. Prohibited Activities</h3>
+        <p>- Uploading another person's face without permission<br>
+        - Sending automated or excessive requests<br>
+        - Misusing AI results for commercial deception or misinformation</p>
+
+        <h3>5. Service Modification</h3>
+        <p>The operator may modify or discontinue the service at any time without compensation.</p>
+
+        <h3>6. Disclaimer</h3>
+        <p>- Accuracy and reliability of AI results are not guaranteed.<br>
+        - Ads or external links displayed belong to third parties.<br>
+        - We are not liable for damages from using this service.</p>
+
+        <h3>7. Contact</h3>
+        <p>For inquiries, please contact:<br>
+        📧 <strong>${email}</strong></p>
+      `,
+
+      ja: `
+        <p>本利用規約は、ユーザーがAIパーソナルカラー分析サービスを利用する際の権利、義務、および責任について定めるものです。</p>
+
+        <h3>1. サービス概要</h3>
+        <p>本サービスは、ユーザーがアップロードした顔画像をAIで分析し、パーソナルカラーを推定します。
+        分析結果は参考用であり、正確性を保証するものではありません。</p>
+
+        <h3>2. 責任の制限</h3>
+        <p>- AI分析結果は情報提供目的であり、美容・ファッションの判断基準として絶対視しないでください。<br>
+        - 照明・画質等により誤った分析が行われる場合があります。運営者は責任を負いません。<br>
+        - 画像品質によっては分析に失敗する場合があります。</p>
+
+        <h3>3. ユーザーの義務</h3>
+        <p>- 他人の写真をアップロードする場合は本人の同意が必要です。<br>
+        - 不適切な画像（暴力、違法、著作権侵害等）のアップロードは禁止します。<br>
+        - サービス運営を妨害する行為は禁止します。</p>
+
+        <h3>4. 禁止行為</h3>
+        <p>- 他人の顔写真を無断でアップロード<br>
+        - 自動化ツールによる大量アクセス<br>
+        - AI結果を悪用した虚偽情報の発信</p>
+
+        <h3>5. サービス変更</h3>
+        <p>運営者はサービス内容を予告なく変更・停止する場合があります。</p>
+
+        <h3>6. 免責事項</h3>
+        <p>- 分析結果の正確性・信頼性を保証しません。<br>
+        - 表示される広告や外部リンクは第三者の責任です。<br>
+        - 本サービス利用による損害について運営者は責任を負いません。</p>
+
+        <h3>7. お問い合わせ</h3>
+        <p>お問い合わせはこちらへ：<br>
+        📧 <strong>${email}</strong></p>
+      `,
+
+      zh: `
+        <p>本条款规定了用户在使用AI个人色彩分析服务时的权利、义务和责任。</p>
+
+        <h3>1. 服务概述</h3>
+        <p>本服务通过AI分析用户上传的人脸图像，以推测个人色彩类型。
+        分析结果仅供参考，不保证完全准确。</p>
+
+        <h3>2. 责任限制</h3>
+        <p>- AI分析结果仅作为信息提供，不应作为美容或时尚决策的唯一依据。<br>
+        - 光线、画质等因素可能导致错误分析，网站不承担法律责任。<br>
+        - 图像质量低可能导致分析失败。</p>
+
+        <h3>3. 用户义务</h3>
+        <p>- 上传他人照片时必须取得当事人同意。<br>
+        - 不得上传违法、有害或侵犯版权的图像。<br>
+        - 不得干扰网站正常运行。</p>
+
+        <h3>4. 禁止行为</h3>
+        <p>- 未经允许上传他人脸部照片<br>
+        - 使用自动化程序发送大量请求<br>
+        - 利用AI结果进行误导或欺诈行为</p>
+
+        <h3>5. 服务变更</h3>
+        <p>网站可能随时修改或停止服务，并无需承担补偿责任。</p>
+
+        <h3>6. 免责声明</h3>
+        <p>- 不保证AI结果的准确性或可靠性。<br>
+        - 广告与外部链接由第三方提供，与本网站无关。<br>
+        - 因使用本服务产生的损失，本网站不承担责任。</p>
+
+        <h3>7. 联系方式</h3>
+        <p>如有问题，请联系：<br>
+        📧 <strong>${email}</strong></p>
+      `,
+
+      es: `
+        <p>Estos Términos de Servicio regulan los derechos y obligaciones de los usuarios al utilizar el servicio de análisis de color personal basado en IA.</p>
+
+        <h3>1. Descripción del servicio</h3>
+        <p>El servicio analiza una imagen facial cargada por el usuario para estimar su categoría de color personal.
+        Los resultados son solo orientativos y no garantizan precisión total.</p>
+
+        <h3>2. Limitación de responsabilidad</h3>
+        <p>- Los resultados de IA son informativos y no deben usarse como única base de decisiones de belleza o moda.<br>
+        - La iluminación, la calidad de la cámara u otros factores pueden causar errores de análisis.<br>
+        - El análisis puede fallar si la imagen es de baja calidad.</p>
+
+        <h3>3. Obligaciones del usuario</h3>
+        <p>- Debes obtener el consentimiento antes de subir fotos de otra persona.<br>
+        - No se permiten imágenes ilegales o inapropiadas.<br>
+        - No debes interferir con el funcionamiento del servicio.</p>
+
+        <h3>4. Actividades prohibidas</h3>
+        <p>- Subir fotos de otras personas sin permiso<br>
+        - Enviar solicitudes automatizadas<br>
+        - Usar resultados de IA para engaño comercial</p>
+
+        <h3>5. Cambios del servicio</h3>
+        <p>El operador puede modificar o suspender el servicio en cualquier momento.</p>
+
+        <h3>6. Descargo de responsabilidad</h3>
+        <p>- No garantizamos precisión ni fiabilidad absoluta.<br>
+        - Los anuncios o enlaces externos pertenecen a terceros.<br>
+        - No somos responsables de daños causados por el uso del servicio.</p>
+
+        <h3>7. Contacto</h3>
+        <p>Para consultas, escribe a:<br>
+        📧 <strong>${email}</strong></p>
+      `,
+
+      fr: `
+        <p>Ces Conditions d'utilisation définissent les droits et responsabilités lors de l'utilisation du service d'analyse de couleur personnelle basé sur l'IA.</p>
+
+        <h3>1. Aperçu du service</h3>
+        <p>Le service analyse une image faciale téléchargée par l’utilisateur afin d’estimer sa palette de couleur personnelle.
+        Les résultats sont fournis à titre indicatif, sans garantie d’exactitude.</p>
+
+        <h3>2. Limitation de responsabilité</h3>
+        <p>- Les résultats d'IA sont informatifs et ne doivent pas constituer la seule base de décisions beauté ou mode.<br>
+        - L’éclairage, la qualité de l’image ou d’autres facteurs peuvent causer des erreurs.<br>
+        - Le service peut échouer en cas de mauvaise qualité d’image.</p>
+
+        <h3>3. Obligations de l'utilisateur</h3>
+        <p>- Vous devez obtenir le consentement avant de télécharger la photo d’un tiers.<br>
+        - Aucune image illégale ou inappropriée n’est autorisée.<br>
+        - Interférer avec le service est interdit.</p>
+
+        <h3>4. Activités interdites</h3>
+        <p>- Téléchargement non autorisé de photos d’autrui<br>
+        - Requêtes automatisées en grande quantité<br>
+        - Utilisation malveillante des résultats d'IA</p>
+
+        <h3>5. Modification du service</h3>
+        <p>L’opérateur peut modifier ou interrompre le service sans compensation.</p>
+
+        <h3>6. Clause de non-responsabilité</h3>
+        <p>- Aucune garantie quant à la précision des résultats.<br>
+        - Les publicités ou liens externes relèvent de tiers.<br>
+        - Nous ne sommes pas responsables des dommages résultant de l'utilisation du service.</p>
+
+        <h3>7. Contact</h3>
+        <p>Contactez-nous à :<br>
+        📧 <strong>${email}</strong></p>
+      `,
+
+      vi: `
+        <p>Điều khoản này quy định quyền và nghĩa vụ của người dùng khi sử dụng dịch vụ phân tích màu sắc cá nhân bằng AI.</p>
+
+        <h3>1. Giới thiệu dịch vụ</h3>
+        <p>Dịch vụ phân tích hình ảnh khuôn mặt do người dùng tải lên để ước tính tông màu cá nhân.
+        Kết quả chỉ mang tính tham khảo và không đảm bảo chính xác tuyệt đối.</p>
+
+        <h3>2. Giới hạn trách nhiệm</h3>
+        <p>- Kết quả AI chỉ nhằm cung cấp thông tin, không nên dùng làm cơ sở duy nhất cho quyết định làm đẹp.<br>
+        - Ánh sáng, chất lượng ảnh hoặc góc chụp có thể gây sai lệch.<br>
+        - Phân tích có thể thất bại với ảnh chất lượng thấp.</p>
+
+        <h3>3. Nghĩa vụ của người dùng</h3>
+        <p>- Phải có sự đồng ý trước khi tải ảnh của người khác.<br>
+        - Không được tải hình ảnh vi phạm pháp luật hoặc nội dung xấu.<br>
+        - Không được can thiệp vào hoạt động của dịch vụ.</p>
+
+        <h3>4. Hành vi cấm</h3>
+        <p>- Tải ảnh khuôn mặt người khác mà không có phép<br>
+        - Gửi yêu cầu tự động số lượng lớn<br>
+        - Lợi dụng kết quả AI để lừa đảo</p>
+
+        <h3>5. Thay đổi dịch vụ</h3>
+        <p>Dịch vụ có thể được thay đổi hoặc ngừng bất cứ lúc nào.</p>
+
+        <h3>6. Miễn trừ trách nhiệm</h3>
+        <p>- Không đảm bảo độ chính xác của kết quả AI.<br>
+        - Quảng cáo hoặc liên kết ngoài thuộc trách nhiệm của bên thứ ba.<br>
+        - Không chịu trách nhiệm cho bất kỳ thiệt hại nào phát sinh khi sử dụng dịch vụ.</p>
+
+        <h3>7. Liên hệ</h3>
+        <p>Mọi thắc mắc xin liên hệ:<br>
+        📧 <strong>${email}</strong></p>
+      `
+    };
+
+    function updateLanguage(lang) {
+      document.getElementById("tos-content").innerHTML = tosText[lang];
+    }
+
+    const langSelect = document.getElementById("languageSelect");
+
+    langSelect.addEventListener("change", () => {
+      updateLanguage(langSelect.value);
+    });
+
+    const browserLang = navigator.language.slice(0, 2);
+    const supported = ["ko", "en", "ja", "zh", "es", "fr", "vi"];
+
+    const initialLang = supported.includes(browserLang) ? browserLang : "en";
+    langSelect.value = initialLang;
+    updateLanguage(initialLang);
+  </script>
+
+</body>
+</html>
