@@ -577,3 +577,25 @@ button,
 #cameraVideo {
   transform: scaleX(-1);
 }
+
+/* --- Mobile Layout Optimization --- */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .analyzer-box, .right-panel {
+    width: 100%;
+    margin: 0;
+  }
+
+  button {
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+}
