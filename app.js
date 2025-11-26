@@ -1,3 +1,4 @@
+const OPENAI_API_KEY = "k-proj-Y3iip5-NTdPzGTtg6hRcCRMD4S65HuPQtJc6mGOEhf9bd1dwIenO5k8xL8rOai1Ql5f_1z9fwWT3BlbkFJjk2palXILCWpl52PvMYvpqRLH9IftjqnryijW3AaNtVaqwJhlzcz6fIdMZt3htdvmguRJldeoA";
 const fileInput = document.getElementById("fileInput");
 const cameraToggleBtn = document.getElementById("cameraToggleBtn");
 const cameraContainer = document.getElementById("cameraContainer");
@@ -893,71 +894,73 @@ async function urlToDataUrl(url) {
 }
 
 /* AI Analysis */
-
 async function runAnalysis(imageDataUrl) {
-  if (!window.websim || !websim.chat || !websim.chat.completions) {
-    setStatus("statusAiUnavailable");
-    return;
-  }
-
   setStatus("statusAnalyzing", true);
   showLoadingState(true);
 
   try {
-    // Keep last messages short; here we send only current request
-    const completion = await websim.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an expert personal color analyst and image analyst. " +
-            "Given a face image, determine personal color season, undertone, and palette. " +
-            "Always respond with ONLY JSON and no extra text. " +
-            "Seasons must be one of: '봄웜', '여름쿨', '가을웜', '겨울쿨'. " +
-            "Return normalized bounding boxes (0-1) for the main face if possible."
-        },
-        {
-          role: "user",
-          content: [
-            {
-              type: "text",
-              text:
-                "Analyze this image and return a JSON object with:\n" +
-                "{\n" +
-                '  "season": "봄웜" | "여름쿨" | "가을웜" | "겨울쿨",\n' +
-                '  "englishSeasonName": string,\n' +
-                '  "undertone": "warm" | "cool" | "neutral",\n' +
-                '  "brightness": "light" | "medium" | "deep",\n' +
-                '  "saturation": "soft" | "medium" | "vivid",\n' +
-                '  "summary": string, // 1 short sentence describing skin tone & vibe\n' +
-                '  "paletteColors": string[], // 6-12 hex color strings like "#F8D5C5"\n' +
-                '  "makeupRecommendations": string[], // bullet-like text phrases\n' +
-                '  "hairRecommendations": string[],\n' +
-                '  "avoidColors": string[],\n' +
-                '  "faceBox": { "x": number, "y": number, "width": number, "height": number } | null // normalized 0-1\n' +
-                "}\n" +
-                "Focus on the cheek skin tone to infer undertone and overall brightness/saturation."
-            },
-            {
-              type: "image_url",
-              image_url: { url: imageDataUrl }
-            }
-          ]
-        }
-      ],
-      json: true
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4.1-mini",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are an expert personal color analyst and image analyst. " +
+              "Given a face image, determine personal color season, undertone, and palette. " +
+              "Always respond with ONLY JSON and no extra text. " +
+              "Seasons must be one of: '봄웜', '여름쿨', '가을웜', '겨울쿨'. " +
+              "Return normalized bounding boxes (0-1) for the main face if possible."
+          },
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text:
+                  "Analyze this image and return a JSON object with:\n" +
+                  "{\n" +
+                  '  "season": "봄웜" | "여름쿨" | "가을웜" | "겨울쿨",\n' +
+                  '  "englishSeasonName": string,\n' +
+                  '  "undertone": "warm" | "cool" | "neutral",\n' +
+                  '  "brightness": "light" | "medium" | "deep",\n' +
+                  '  "saturation": "soft" | "medium" | "vivid",\n' +
+                  '  "summary": string,\n' +
+                  '  "paletteColors": string[],\n' +
+                  '  "makeupRecommendations": string[],\n' +
+                  '  "hairRecommendations": string[],\n' +
+                  '  "avoidColors": string[],\n' +
+                  '  "faceBox": { "x": number, "y": number, "width": number, "height": number } | null\n' +
+                  "}\n" +
+                  "Focus on the cheek skin tone to infer undertone and brightness/saturation."
+              },
+              {
+                type: "image_url",
+                image_url: { url: imageDataUrl }
+              }
+            ]
+          }
+        ],
+        response_format: { type: "json_object" }
+      })
     });
 
-    const content = completion.content;
-    let data;
+    const result = await response.json();
+
+    let parsed;
     try {
-      data = JSON.parse(content);
+      parsed = JSON.parse(result.choices[0].message.content);
     } catch (err) {
-      console.error("JSON parse error", err, content);
-      throw new Error("AI response error");
+      console.error("JSON parse error:", result);
+      throw new Error("Invalid JSON from AI");
     }
 
-    applyResultToUI(data);
+    applyResultToUI(parsed);
     setStatus("statusComplete");
   } catch (err) {
     console.error(err);
@@ -966,6 +969,7 @@ async function runAnalysis(imageDataUrl) {
     showLoadingState(false);
   }
 }
+
 
 function showLoadingState(isLoading) {
   if (isLoading) {
