@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Privacy Policy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.7;
+    }
+    h1 { margin-bottom: 20px; }
+    .lang-select {
+      margin: 16px 0 30px;
+      padding: 8px 12px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 id="pp-title">Privacy Policy</h1>
+
+  <select id="languageSelect" class="lang-select" aria-label="Language">
+    <option value="ko">한국어</option>
+    <option value="en">English</option>
+    <option value="ja">日本語</option>
+    <option value="zh">简体中文</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="vi">Tiếng Việt</option>
+  </select>
+
+  <div id="pp-content"></div>
+
+  <script>
+    const email = "alth744@gmail.com";
+
+    const ppText = {
+      ko: `
+        <p>본 사이트는 사용자가 업로드한 이미지를 AI 퍼스널 컬러 분석을 위해 일시적으로 처리합니다. 
+        분석된 이미지는 서버에 저장되지 않으며, 분석 후 즉시 폐기됩니다.</p>
+
+        <h3>1. 수집되는 정보</h3>
+        <p>- 사용자가 업로드하는 사진(이미지)<br>
+        - 브라우저 정보, 사용 언어 등 기본 접속 정보</p>
+
+        <h3>2. 정보의 이용 목적</h3>
+        <p>업로드된 이미지는 오직 AI 기반 퍼스널 컬러 분석을 위해 사용되며,
+        그 외 목적에 사용되거나 저장되지 않습니다.</p>
+
+        <h3>3. 제3자 제공</h3>
+        <p>본 사이트는 사용자의 이미지를 제3자에게 제공하지 않습니다.</p>
+
+        <h3>4. 쿠키 및 광고</h3>
+        <p>본 사이트는 Google AdSense 광고를 사용할 수 있으며,
+        Google은 개인맞춤 광고를 위해 쿠키를 사용할 수 있습니다.</p>
+
+        <h3>5. 문의</h3>
+        <p>문의 사항은 아래 이메일로 연락해 주세요.<br>
+        📧 <strong>${email}</strong></p>
+      `,
+      en: `
+        <p>This website temporarily processes the images uploaded by users
+        for AI-based personal color analysis. The processed images are not stored on the server and are deleted immediately after analysis.</p>
+
+        <h3>1. Information We Collect</h3>
+        <p>- Uploaded photos (images)<br>
+        - Basic browser and language information</p>
+
+        <h3>2. Purpose of Use</h3>
+        <p>Uploaded images are used solely for personal color analysis 
+        using AI technologies and are not stored or used for any other purpose.</p>
+
+        <h3>3. Third-party Sharing</h3>
+        <p>Your images are not shared with any third parties.</p>
+
+        <h3>4. Cookies & Ads</h3>
+        <p>This website may display Google AdSense ads, which may use cookies for personalized advertising.</p>
+
+        <h3>5. Contact</h3>
+        <p>If you have inquiries, please contact:<br>
+        📧 <strong>${email}</strong></p>
+      `,
+      ja: `
+        <p>本サイトは、ユーザーがアップロードした画像をAIパーソナルカラー分析のために一時的に処理します。
+        画像はサーバーに保存されず、分析後すぐに削除されます。</p>
+
+        <h3>1. 収集される情報</h3>
+        <p>- アップロードされた写真（画像）<br>
+        - ブラウザおよび言語情報</p>
+
+        <h3>2. 利用目的</h3>
+        <p>アップロードされた画像はAIによるパーソナルカラー分析のみに使用され、
+        その他の目的で保存・利用されることはありません。</p>
+
+        <h3>3. 第三者提供</h3>
+        <p>当サイトはユーザーの画像を第三者に提供しません。</p>
+
+        <h3>4. クッキーと広告</h3>
+        <p>当サイトではGoogle AdSense広告を使用する場合があり、
+        Googleはパーソナライズド広告のためにクッキーを使用することがあります。</p>
+
+        <h3>5. お問い合わせ</h3>
+        <p>お問い合わせは下記メールアドレスまでご連絡ください。<br>
+        📧 <strong>${email}</strong></p>
+      `,
+      zh: `
+        <p>本网站会临时处理用户上传的图像，用于AI个人色彩分析。
+        图像不会存储在服务器中，并会在分析后立即删除。</p>
+
+        <h3>1. 收集的信息</h3>
+        <p>- 上传的照片（图像）<br>
+        - 浏览器与语言信息</p>
+
+        <h3>2. 信息用途</h3>
+        <p>上传的图像仅用于AI个人色彩分析，
+        不会被存储或用于其他用途。</p>
+
+        <h3>3. 第三方共享</h3>
+        <p>本网站不会向任何第三方提供您的图像。</p>
+
+        <h3>4. Cookie与广告</h3>
+        <p>本网站可能展示Google AdSense广告，
+        Google可能使用Cookie进行个性化广告投放。</p>
+
+        <h3>5. 联系方式</h3>
+        <p>如有疑问，请联系：<br>
+        📧 <strong>${email}</strong></p>
+      `,
+      es: `
+        <p>Este sitio web procesa temporalmente las imágenes subidas por los usuarios
+        para análisis de color personal con IA. Las imágenes no se almacenan en el servidor y se eliminan inmediatamente después del análisis.</p>
+
+        <h3>1. Información recopilada</h3>
+        <p>- Fotos (imágenes) subidas<br>
+        - Información básica del navegador e idioma</p>
+
+        <h3>2. Uso de la información</h3>
+        <p>Las imágenes se utilizan únicamente para análisis de color personal mediante IA
+        y no se almacenan ni se utilizan para otros fines.</p>
+
+        <h3>3. Compartición con terceros</h3>
+        <p>No compartimos tus imágenes con terceros.</p>
+
+        <h3>4. Cookies y anuncios</h3>
+        <p>Este sitio puede mostrar anuncios de Google AdSense,
+        que pueden utilizar cookies para publicidad personalizada.</p>
+
+        <h3>5. Contacto</h3>
+        <p>Si tienes dudas, contáctanos:<br>
+        📧 <strong>${email}</strong></p>
+      `,
+      fr: `
+        <p>Ce site traite temporairement les images téléchargées par les utilisateurs
+        pour l'analyse de couleur personnelle basée sur l'IA. Les images ne sont pas stockées sur le serveur et sont supprimées immédiatement après analyse.</p>
+
+        <h3>1. Informations collectées</h3>
+        <p>- Photos (images) téléchargées<br>
+        - Informations de navigateur et de langue</p>
+
+        <h3>2. Utilisation</h3>
+        <p>Les images sont utilisées uniquement pour l'analyse de couleur personnelle
+        par l'IA et ne sont pas conservées à d'autres fins.</p>
+
+        <h3>3. Partage avec des tiers</h3>
+        <p>Nous ne partageons pas vos images avec des tiers.</p>
+
+        <h3>4. Cookies et publicités</h3>
+        <p>Ce site peut afficher des publicités Google AdSense,
+        qui peuvent utiliser des cookies pour la publicité personnalisée.</p>
+
+        <h3>5. Contact</h3>
+        <p>Pour toute question, contactez-nous :<br>
+        📧 <strong>${email}</strong></p>
+      `,
+      vi: `
+        <p>Trang web này xử lý tạm thời hình ảnh người dùng tải lên
+        để phân tích màu cá nhân bằng AI. Hình ảnh không được lưu trữ và sẽ bị xóa ngay sau khi phân tích.</p>
+
+        <h3>1. Thông tin thu thập</h3>
+        <p>- Ảnh (hình ảnh) được tải lên<br>
+        - Thông tin trình duyệt và ngôn ngữ</p>
+
+        <h3>2. Mục đích sử dụng</h3>
+        <p>Hình ảnh chỉ được sử dụng cho phân tích màu cá nhân bằng AI
+        và không được lưu trữ hoặc sử dụng cho mục đích khác.</p>
+
+        <h3>3. Chia sẻ với bên thứ ba</h3>
+        <p>Trang web không chia sẻ hình ảnh của bạn với bất kỳ bên thứ ba nào.</p>
+
+        <h3>4. Cookie & quảng cáo</h3>
+        <p>Trang web có thể hiển thị quảng cáo Google AdSense,
+        có thể sử dụng cookie để quảng cáo được cá nhân hóa.</p>
+
+        <h3>5. Liên hệ</h3>
+        <p>Mọi thắc mắc xin vui lòng liên hệ:<br>
+        📧 <strong>${email}</strong></p>
+      `
+    };
+
+    function updateLanguage(lang) {
+      document.getElementById("pp-content").innerHTML = ppText[lang];
+    }
+
+    const langSelect = document.getElementById("languageSelect");
+
+    // 언어 선택 시 변경
+    langSelect.addEventListener("change", () => {
+      updateLanguage(langSelect.value);
+    });
+
+    // 브라우저 언어 자동 감지
+    const browserLang = navigator.language.slice(0, 2);
+    const supported = ["ko", "en", "ja", "zh", "es", "fr", "vi"];
+
+    const initialLang = supported.includes(browserLang) ? browserLang : "en";
+    langSelect.value = initialLang;
+    updateLanguage(initialLang);
+  </script>
+
+</body>
+</html>
