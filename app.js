@@ -895,7 +895,7 @@ async function urlToDataUrl(url) {
 /* AI Analysis */
 
 // WARNING: Do not commit this file with the API key to a public repository.
-const GEMINI_API_KEY = "AIzaSyBL5zS81Oc5lDDAo39o3fJMYAfjnWSepQc";
+const GEMINI_API_KEY = "__GEMINI_API_KEY__";  
 
 async function runAnalysis(imageDataUrl) {
     const apiKey = GEMINI_API_KEY;
