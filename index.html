@@ -1,163 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>AI Personal Color Analyzer</title>
-
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3987437502763463"
-    crossorigin="anonymous"></script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="stylesheet" href="style.css" />
-
-  <script type="importmap">
+    <meta charset="UTF-8" />
+    <title>AI Personal Color Analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="importmap">
   {
     "imports": {
+      // Reserved for future libraries (chroma-js, etc.) if needed
       "chroma-js": "https://esm.sh/chroma-js@2.4.2"
     }
   }
   </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3987437502763463"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="app-root">
-    <!-- Top banner ad slot -->
-    <div class="banner banner-top">
-      <span class="banner-label" data-i18n="adSpace">Ad space</span>
+    <div class="app-root">
+        <!-- Top banner ad slot -->
+        <div class="banner banner-top">
+            <!-- Replace data-ad-client and data-ad-slot with your actual IDs -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3987437502763463"
+                data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <main class="app-main">
+            <section class="left-panel">
+                <div class="brand-line">
+                    <span class="brand-tag" data-i18n="brandTag">AI Personal Color Analysis. Try it for free.</span>
+                    <select id="languageSelect" class="lang-select" aria-label="Language">
+                        <option value="ko">한국어</option>
+                        <option value="en" selected>English</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh">简体中文</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="vi">Tiếng Việt</option>
+                    </select>
+                </div>
+
+                <div class="preview-card">
+                    <div class="preview-image-wrapper">
+                        <img id="previewImage" class="preview-image" alt="Preview" />
+                        <canvas id="faceCanvas" class="face-canvas"></canvas>
+                        <div id="previewPlaceholder" class="preview-placeholder">
+                            <span data-i18n="previewPlaceholder">Upload or use camera</span>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <label class="file-btn">
+                            <input id="fileInput" type="file" accept="image/png,image/jpeg" />
+                            <span data-i18n="upload">Upload Image</span>
+                        </label>
+
+                        <button id="cameraToggleBtn" class="primary-btn" data-i18n="useCamera">Use Camera</button>
+                    </div>
+
+                    <div class="camera-container" id="cameraContainer">
+                        <video id="cameraVideo" autoplay playsinline></video>
+                        <button id="captureBtn" class="secondary-btn small" data-i18n="capture">Capture</button>
+                    </div>
+
+                    <div class="sample-row">
+                        <span class="samples-label" data-i18n="tryExample">Try example:</span>
+                        <div class="sample-thumbs">
+                            <button class="sample-thumb"
+                                data-url="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg">
+                                <span data-i18n="sample1">Sample 1</span>
+                            </button>
+                            <button class="sample-thumb"
+                                data-url="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg">
+                                <span data-i18n="sample2">Sample 2</span>
+                            </button>
+                            <button class="sample-thumb"
+                                data-url="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg">
+                                <span data-i18n="sample3">Sample 3</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="statusBar" class="status-bar">
+                        <div id="loadingSpinner" class="spinner hidden"></div>
+                        <span id="statusText" class="status-text" data-i18n="ready">Ready</span>
+                    </div>
+                </div>
+
+                <div class="monetization-row">
+                    <button id="premiumBtn" class="premium-btn" data-i18n="premiumComingSoon">Premium Analysis (Coming
+                        Soon)</button>
+                    <button id="downloadBtn" class="ghost-btn" data-i18n="downloadHdReport">Download HD Report
+                        (PDF)</button>
+                </div>
+            </section>
+
+            <section class="right-panel">
+                <div id="resultCard" class="result-card hidden">
+                    <div class="result-header">
+                        <div class="badge" id="seasonBadge">봄웜</div>
+                        <div class="result-title-group">
+                            <h2 id="seasonTitle">Spring Warm</h2>
+                            <p id="toneSummary" class="tone-summary"></p>
+                        </div>
+                    </div>
+
+                    <div class="result-body">
+                        <div class="sub-section">
+                            <h3 data-i18n="paletteTitle">Palette</h3>
+                            <div id="paletteSwatches" class="swatch-row"></div>
+                        </div>
+
+                        <div class="sub-grid">
+                            <div class="sub-section">
+                                <h3 data-i18n="makeupTitle">Makeup Colors</h3>
+                                <ul id="makeupList" class="simple-list"></ul>
+                            </div>
+                            <div class="sub-section">
+                                <h3 data-i18n="hairTitle">Hair Colors</h3>
+                                <ul id="hairList" class="simple-list"></ul>
+                            </div>
+                        </div>
+
+                        <div class="sub-section">
+                            <h3 data-i18n="avoidTitle">Colors to Avoid</h3>
+                            <ul id="avoidList" class="simple-list avoid-list"></ul>
+                        </div>
+                    </div>
+
+                    <div class="share-row">
+                        <span class="share-label" data-i18n="shareLabel">Share</span>
+                        <div class="share-buttons">
+                            <button id="shareKakao" class="chip-btn" data-i18n="shareKakao">KakaoTalk</button>
+                            <button id="shareInsta" class="chip-btn" data-i18n="shareInsta">Instagram Story</button>
+                            <button id="shareLink" class="chip-btn" data-i18n="shareLink">Copy Link</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="emptyState" class="empty-state">
+                    <p data-i18n="emptyStateText">Upload a photo or use your camera to see your personal color season.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom banner ad slot -->
+        <div class="banner banner-bottom">
+            <!-- Replace data-ad-client and data-ad-slot with your actual IDs -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3987437502763463"
+                data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
 
-    <main class="app-main">
-      <section class="left-panel">
-        <div class="brand-line">
-          <span class="brand-tag" data-i18n="brandTag">AI Personal Color Analysis. Try it for free.</span>
-          <select id="languageSelect" class="lang-select" aria-label="Language">
-            <option value="ko">한국어</option>
-            <option value="en" selected>English</option>
-            <option value="ja">日本語</option>
-            <option value="zh">简体中文</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="vi">Tiếng Việt</option>
-          </select>
-        </div>
-
-        <div class="preview-card">
-          <div class="preview-image-wrapper">
-            <img id="previewImage" class="preview-image" alt="Preview" />
-            <canvas id="faceCanvas" class="face-canvas"></canvas>
-
-            <div id="previewPlaceholder" class="preview-placeholder">
-              <span data-i18n="previewPlaceholder">Upload or use camera</span>
-            </div>
-          </div>
-
-          <div class="input-row">
-            <label class="file-btn">
-              <input id="fileInput" type="file" accept="image/png,image/jpeg" />
-              <span data-i18n="upload">Upload Image</span>
-            </label>
-
-            <button id="cameraToggleBtn" class="primary-btn" data-i18n="useCamera">Use Camera</button>
-          </div>
-
-          <div class="camera-container" id="cameraContainer">
-            <video id="cameraVideo" autoplay playsinline></video>
-            <button id="captureBtn" class="secondary-btn small" data-i18n="capture">Capture</button>
-          </div>
-
-          <div class="sample-row">
-            <span class="samples-label" data-i18n="tryExample">Try example:</span>
-            <div class="sample-thumbs">
-              <button class="sample-thumb" data-url="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg">
-                <span data-i18n="sample1">Sample 1</span>
-              </button>
-              <button class="sample-thumb" data-url="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg">
-                <span data-i18n="sample2">Sample 2</span>
-              </button>
-              <button class="sample-thumb" data-url="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg">
-                <span data-i18n="sample3">Sample 3</span>
-              </button>
-            </div>
-          </div>
-
-          <div id="statusBar" class="status-bar">
-            <div id="loadingSpinner" class="spinner hidden"></div>
-            <span id="statusText" class="status-text" data-i18n="ready">Ready</span>
-          </div>
-        </div>
-
-        <div class="monetization-row">
-          <button id="premiumBtn" class="premium-btn" data-i18n="premiumComingSoon">Premium Analysis (Coming Soon)</button>
-          <button id="downloadBtn" class="ghost-btn" data-i18n="downloadHdReport">Download HD Report (PDF)</button>
-        </div>
-      </section>
-
-      <section class="right-panel">
-        <div id="resultCard" class="result-card hidden">
-          <div class="result-header">
-            <div class="badge" id="seasonBadge">봄웜</div>
-            <div class="result-title-group">
-              <h2 id="seasonTitle">Spring Warm</h2>
-              <p id="toneSummary" class="tone-summary"></p>
-            </div>
-          </div>
-
-          <div class="result-body">
-            <div class="sub-section">
-              <h3 data-i18n="paletteTitle">Palette</h3>
-              <div id="paletteSwatches" class="swatch-row"></div>
-            </div>
-
-            <div class="sub-grid">
-              <div class="sub-section">
-                <h3 data-i18n="makeupTitle">Makeup Colors</h3>
-                <ul id="makeupList" class="simple-list"></ul>
-              </div>
-              <div class="sub-section">
-                <h3 data-i18n="hairTitle">Hair Colors</h3>
-                <ul id="hairList" class="simple-list"></ul>
-              </div>
-            </div>
-
-            <div class="sub-section">
-              <h3 data-i18n="avoidTitle">Colors to Avoid</h3>
-              <ul id="avoidList" class="simple-list avoid-list"></ul>
-            </div>
-          </div>
-
-          <div class="share-row">
-            <span class="share-label" data-i18n="shareLabel">Share</span>
-            <div class="share-buttons">
-              <button id="shareKakao" class="chip-btn" data-i18n="shareKakao">KakaoTalk</button>
-              <button id="shareInsta" class="chip-btn" data-i18n="shareInsta">Instagram Story</button>
-              <button id="shareLink" class="chip-btn" data-i18n="shareLink">Copy Link</button>
-            </div>
-          </div>
-        </div>
-
-        <div id="emptyState" class="empty-state">
-          <p data-i18n="emptyStateText">Upload a photo or use your camera to see your personal color season.</p>
-        </div>
-      </section>
-    </main>
-
-    <!-- Bottom banner ad -->
-    <div class="banner banner-bottom">
-      <span class="banner-label" data-i18n="adSpace">Ad space</span>
-    </div>
-
-    <!-- Footer (must be inside body) -->
-    <footer style="margin-top:40px; text-align:center;">
-      <a href="/privacy.html" target="_blank" style="margin-right:15px;">Privacy Policy</a>
-      <a href="/terms.html" target="_blank">Terms of Service</a>
-    </footer>
-  </div>
-
-  <!-- Websim AI SDK (필수!) -->
-  <script src="https://websim.ai/sdk/v1/websim.min.js"></script>
-
-  <!-- App JS -->
-  <script type="module" src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
+
 </html>
