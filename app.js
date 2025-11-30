@@ -894,17 +894,25 @@ async function urlToDataUrl(url) {
 
 /* AI Analysis */
 
-// WARNING: Do not commit this file with the API key to a public repository.
-const GEMINI_API_KEY = "__GEMINI_API_KEY__";  
-
 async function runAnalysis(imageDataUrl) {
-    const apiKey = GEMINI_API_KEY;
-
     setStatus("statusAnalyzing", true);
     showLoadingState(true);
 
     try {
-        const result = await callGeminiAPI(apiKey, imageDataUrl);
+        const response = await fetch('/api/analyze', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ image: imageDataUrl })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Server Error: ${response.status}`);
+        }
+
+        const result = await response.json();
         applyResultToUI(result);
         setStatus("statusComplete");
     } catch (err) {
@@ -913,64 +921,6 @@ async function runAnalysis(imageDataUrl) {
     } finally {
         showLoadingState(false);
     }
-}
-
-async function callGeminiAPI(apiKey, imageDataUrl) {
-    // Remove header if present to get base64 string
-    const base64Image = imageDataUrl.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
-
-    const promptText = `
-    Analyze this image and return a JSON object with:
-    {
-      "season": "봄웜" | "여름쿨" | "가을웜" | "겨울쿨",
-      "englishSeasonName": string,
-      "undertone": "warm" | "cool" | "neutral",
-      "brightness": "light" | "medium" | "deep",
-      "saturation": "soft" | "medium" | "vivid",
-      "summary": string, // 1 short sentence describing skin tone & vibe
-      "paletteColors": string[], // 6-12 hex color strings like "#F8D5C5"
-      "makeupRecommendations": string[], // bullet-like text phrases
-      "hairRecommendations": string[],
-      "avoidColors": string[],
-      "faceBox": { "x": number, "y": number, "width": number, "height": number } | null // normalized 0-1
-    }
-    Focus on the cheek skin tone to infer undertone and overall brightness/saturation.
-    Return ONLY valid JSON.
-    `;
-
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            contents: [{
-                parts: [
-                    { text: promptText },
-                    {
-                        inline_data: {
-                            mime_type: "image/jpeg",
-                            data: base64Image
-                        }
-                    }
-                ]
-            }],
-            generationConfig: {
-                response_mime_type: "application/json"
-            }
-        })
-    });
-
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Gemini API Error: ${errorData.error?.message || response.statusText}`);
-    }
-
-    const data = await response.json();
-    const textContent = data.candidates[0].content.parts[0].text;
-    return JSON.parse(textContent);
 }
 
 function showLoadingState(isLoading) {
