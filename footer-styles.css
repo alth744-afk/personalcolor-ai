@@ -1,0 +1,27 @@
+/* Footer styles - Add to style.css */
+
+.app-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    font-size: 11px;
+    color: var(--text-soft);
+}
+
+.footer-link {
+    color: var(--text-soft);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+    color: var(--accent-strong);
+    text-decoration: underline;
+}
+
+.footer-divider {
+    color: var(--border-soft);
+    user-select: none;
+}
