@@ -47,11 +47,19 @@ export default async function handler(request) {
       "avoidColors": string[],
       "faceBox": { "x": number, "y": number, "width": number, "height": number } | null // normalized 0-1
     }
-    Focus on the cheek skin tone to infer undertone and overall brightness/saturation.
+   
+    --
+
+    [CRITICAL INSTRUCTION]
+    1. Detect a human face first.
+    2. If a face is found, return a normalized (0–1) bounding box in "faceBox".
+    3. Use only the cheek skin tone (avoid shadows and heavy makeup) to determine season, undertone, brightness, and saturation.
+
     Return ONLY valid JSON.
+
     `;
 
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(url, {
             method: "POST",

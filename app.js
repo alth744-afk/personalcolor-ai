@@ -35,6 +35,7 @@ const languageSelect = document.getElementById("languageSelect");
 
 let cameraStream = null;
 let lastImageDataUrl = null;
+let currentAnalysisResult = null; // Store latest analysis result for sharing
 
 /* Translations */
 
@@ -936,6 +937,10 @@ function showLoadingState(isLoading) {
 
 function applyResultToUI(data) {
     if (!data) return;
+
+    // Store result for sharing
+    currentAnalysisResult = data;
+
     emptyState.classList.add("hidden");
     resultCard.classList.remove("hidden");
 
@@ -1236,7 +1241,41 @@ downloadBtn.addEventListener("click", () => {
 /* Sharing */
 
 shareKakao.addEventListener("click", () => {
-    alert(t("shareKakaoAlert"));
+    // Check if analysis result exists
+    if (!currentAnalysisResult) {
+        alert("먼저 퍼스널 컬러 분석을 진행해주세요!");
+        return;
+    }
+
+    // Initialize Kakao SDK if not already initialized
+    if (!window.Kakao.isInitialized()) {
+        window.Kakao.init('74e44a977c993cb49534e1967eaffebf');
+    }
+
+    const season = currentAnalysisResult.season || "봄웜";
+
+    Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: '나의 퍼스널 컬러 분석 결과',
+            description: `AI가 분석한 나의 퍼스널 컬러는 '${season}'입니다! 당신도 확인해보세요!`,
+            imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800',
+            link: {
+                mobileWebUrl: window.location.origin + window.location.pathname,
+                webUrl: window.location.origin + window.location.pathname
+            },
+        },
+        buttons: [
+            {
+                title: '나도 분석하기',
+                link: {
+                    mobileWebUrl: window.location.origin + window.location.pathname,
+                    webUrl: window.location.origin + window.location.pathname
+                },
+            },
+        ],
+        installTalk: true
+    });
 });
 
 shareInsta.addEventListener("click", () => {
