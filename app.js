@@ -1,5 +1,6 @@
 const fileInput = document.getElementById("fileInput");
 const cameraToggleBtn = document.getElementById("cameraToggleBtn");
+const cameraContainer = document.getElementById("cameraContainer");
 const cameraVideo = document.getElementById("cameraVideo");
 const captureBtn = document.getElementById("captureBtn");
 const previewImage = document.getElementById("previewImage");
@@ -795,7 +796,7 @@ fileInput.addEventListener("change", async (e) => {
 });
 
 cameraToggleBtn.addEventListener("click", async () => {
-    if (cameraStream) {
+    if (cameraContainer.style.display === "block") {
         stopCamera();
     } else {
         await startCamera();
@@ -814,15 +815,8 @@ async function startCamera() {
             audio: false
         });
         cameraVideo.srcObject = cameraStream;
-
-        // UI updates for unified view
-        cameraVideo.classList.remove("hidden");
-        captureBtn.classList.remove("hidden");
-        previewImage.classList.add("hidden");
-        previewPlaceholder.classList.add("hidden");
-
+        cameraContainer.style.display = "block";
         cameraToggleBtn.textContent = t("stopCamera");
-        cameraToggleBtn.classList.replace("primary-btn", "secondary-btn");
     } catch (err) {
         console.error(err);
         setStatus("statusCameraError");
@@ -834,22 +828,8 @@ function stopCamera() {
         cameraStream.getTracks().forEach((t) => t.stop());
         cameraStream = null;
     }
-
-    // UI updates
-    cameraVideo.classList.add("hidden");
-    captureBtn.classList.add("hidden");
-
-    // Show placeholder if no image was captured, otherwise show the last image
-    if (!lastImageDataUrl) {
-        previewPlaceholder.classList.remove("hidden");
-        previewImage.classList.add("hidden");
-    } else {
-        previewImage.classList.remove("hidden");
-        previewPlaceholder.classList.add("hidden");
-    }
-
+    cameraContainer.style.display = "none";
     cameraToggleBtn.textContent = t("useCamera");
-    cameraToggleBtn.classList.replace("secondary-btn", "primary-btn");
 }
 
 function captureFromCamera() {

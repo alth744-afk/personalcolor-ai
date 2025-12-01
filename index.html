@@ -16,10 +16,6 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3987437502763463"
         crossorigin="anonymous"></script>
-    <!-- Kakao SDK -->
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-        integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2txfDWgyqVyhm1BIARa856"
-        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -52,12 +48,10 @@
                 <div class="preview-card">
                     <div class="preview-image-wrapper">
                         <img id="previewImage" class="preview-image" alt="Preview" />
-                        <video id="cameraVideo" autoplay playsinline class="hidden"></video>
                         <canvas id="faceCanvas" class="face-canvas"></canvas>
                         <div id="previewPlaceholder" class="preview-placeholder">
                             <span data-i18n="previewPlaceholder">Upload or use camera</span>
                         </div>
-                        <button id="captureBtn" class="secondary-btn small hidden" data-i18n="capture">Capture</button>
                     </div>
 
                     <div class="input-row">
@@ -67,6 +61,11 @@
                         </label>
 
                         <button id="cameraToggleBtn" class="primary-btn" data-i18n="useCamera">Use Camera</button>
+                    </div>
+
+                    <div class="camera-container" id="cameraContainer">
+                        <video id="cameraVideo" autoplay playsinline></video>
+                        <button id="captureBtn" class="secondary-btn small" data-i18n="capture">Capture</button>
                     </div>
 
                     <div class="sample-row">
@@ -169,7 +168,11 @@
         </footer>
     </div>
 
+
+    <!-- Kakao SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+        integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2txfDWgyqVyhm1BIARa856"
+        crossorigin="anonymous"></script>
     <script type="module" src="app.js"></script>
-</body>
 
 </html>
