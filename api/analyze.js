@@ -20,7 +20,7 @@ export default async function handler(request) {
             });
         }
 
-        const apiKey = "AIzaSyBb2FfLuUlyrCwkir7E7Zc8g9o46Jzrq9Y";
+        const apiKey = process.env.GEMINI_API_KEY;
 
         if (!apiKey) {
             return new Response(JSON.stringify({ error: 'Server configuration error: API Key missing' }), {
